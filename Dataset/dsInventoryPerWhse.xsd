@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsInventoryPerWhse" targetNamespace="http://tempuri.org/dsInventoryPerWhse.xsd" xmlns:mstns="http://tempuri.org/dsInventoryPerWhse.xsd" xmlns="http://tempuri.org/dsInventoryPerWhse.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsInventoryPerWhse" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsInventoryPerWhse" msprop:Generator_UserDSName="dsInventoryPerWhse">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="data" msprop:Generator_TableClassName="dataDataTable" msprop:Generator_TableVarName="tabledata" msprop:Generator_TablePropName="data" msprop:Generator_RowDeletingName="dataRowDeleting" msprop:Generator_RowChangingName="dataRowChanging" msprop:Generator_RowEvHandlerName="dataRowChangeEventHandler" msprop:Generator_RowDeletedName="dataRowDeleted" msprop:Generator_UserTableName="data" msprop:Generator_RowChangedName="dataRowChanged" msprop:Generator_RowEvArgName="dataRowChangeEvent" msprop:Generator_RowClassName="dataRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="whsecode" msprop:Generator_ColumnVarNameInTable="columnwhsecode" msprop:Generator_ColumnPropNameInRow="whsecode" msprop:Generator_ColumnPropNameInTable="whsecodeColumn" msprop:Generator_UserColumnName="whsecode" type="xs:string" minOccurs="0" />
+              <xs:element name="available" msprop:Generator_ColumnVarNameInTable="columnavailable" msprop:Generator_ColumnPropNameInRow="available" msprop:Generator_ColumnPropNameInTable="availableColumn" msprop:Generator_UserColumnName="available" type="xs:double" minOccurs="0" />
+              <xs:element name="item_code" msprop:Generator_ColumnVarNameInTable="columnitem_code" msprop:Generator_ColumnPropNameInRow="item_code" msprop:Generator_ColumnPropNameInTable="item_codeColumn" msprop:Generator_UserColumnName="item_code" type="xs:string" minOccurs="0" />
+              <xs:element name="branch" msprop:Generator_ColumnVarNameInTable="columnbranch" msprop:Generator_ColumnPropNameInRow="branch" msprop:Generator_ColumnPropNameInTable="branchColumn" msprop:Generator_UserColumnName="branch" type="xs:string" minOccurs="0" />
+              <xs:element name="transact_by" msprop:Generator_ColumnVarNameInTable="columntransact_by" msprop:Generator_ColumnPropNameInRow="transact_by" msprop:Generator_ColumnPropNameInTable="transact_byColumn" msprop:Generator_UserColumnName="transact_by" type="xs:string" minOccurs="0" />
+              <xs:element name="transdate" msprop:Generator_ColumnVarNameInTable="columntransdate" msprop:Generator_ColumnPropNameInRow="transdate" msprop:Generator_ColumnPropNameInTable="transdateColumn" msprop:Generator_UserColumnName="transdate" type="xs:string" minOccurs="0" />
+              <xs:element name="plant" msprop:Generator_ColumnVarNameInTable="columnplant" msprop:Generator_ColumnPropNameInRow="plant" msprop:Generator_ColumnPropNameInTable="plantColumn" msprop:Generator_UserColumnName="plant" type="xs:string" minOccurs="0" />
+              <xs:element name="beginning" msprop:Generator_ColumnVarNameInTable="columnbeginning" msprop:Generator_ColumnPropNameInRow="beginning" msprop:Generator_ColumnPropNameInTable="beginningColumn" msprop:Generator_UserColumnName="beginning" type="xs:double" minOccurs="0" />
+              <xs:element name="in_transit" msprop:Generator_ColumnVarNameInTable="columnin_transit" msprop:Generator_ColumnPropNameInRow="in_transit" msprop:Generator_ColumnPropNameInTable="in_transitColumn" msprop:Generator_UserColumnName="in_transit" type="xs:double" minOccurs="0" />
+              <xs:element name="receipt_from_prod" msprop:Generator_ColumnVarNameInTable="columnreceipt_from_prod" msprop:Generator_ColumnPropNameInRow="receipt_from_prod" msprop:Generator_ColumnPropNameInTable="receipt_from_prodColumn" msprop:Generator_UserColumnName="receipt_from_prod" type="xs:double" minOccurs="0" />
+              <xs:element name="received" msprop:Generator_ColumnVarNameInTable="columnreceived" msprop:Generator_ColumnPropNameInRow="received" msprop:Generator_ColumnPropNameInTable="receivedColumn" msprop:Generator_UserColumnName="received" type="xs:double" minOccurs="0" />
+              <xs:element name="transferred_in" msprop:Generator_ColumnVarNameInTable="columntransferred_in" msprop:Generator_ColumnPropNameInRow="transferred_in" msprop:Generator_ColumnPropNameInTable="transferred_inColumn" msprop:Generator_UserColumnName="transferred_in" type="xs:double" minOccurs="0" />
+              <xs:element name="adjustment_in" msprop:Generator_ColumnVarNameInTable="columnadjustment_in" msprop:Generator_ColumnPropNameInRow="adjustment_in" msprop:Generator_ColumnPropNameInTable="adjustment_inColumn" msprop:Generator_UserColumnName="adjustment_in" type="xs:double" minOccurs="0" />
+              <xs:element name="adjustment_out" msprop:Generator_ColumnVarNameInTable="columnadjustment_out" msprop:Generator_ColumnPropNameInRow="adjustment_out" msprop:Generator_ColumnPropNameInTable="adjustment_outColumn" msprop:Generator_UserColumnName="adjustment_out" type="xs:double" minOccurs="0" />
+              <xs:element name="out_for_transfer" msprop:Generator_ColumnVarNameInTable="columnout_for_transfer" msprop:Generator_ColumnPropNameInRow="out_for_transfer" msprop:Generator_ColumnPropNameInTable="out_for_transferColumn" msprop:Generator_UserColumnName="out_for_transfer" type="xs:double" minOccurs="0" />
+              <xs:element name="transferred_out" msprop:Generator_ColumnVarNameInTable="columntransferred_out" msprop:Generator_ColumnPropNameInRow="transferred_out" msprop:Generator_ColumnPropNameInTable="transferred_outColumn" msprop:Generator_UserColumnName="transferred_out" type="xs:double" minOccurs="0" />
+              <xs:element name="issue_for_prod" msprop:Generator_ColumnVarNameInTable="columnissue_for_prod" msprop:Generator_ColumnPropNameInRow="issue_for_prod" msprop:Generator_ColumnPropNameInTable="issue_for_prodColumn" msprop:Generator_UserColumnName="issue_for_prod" type="xs:double" minOccurs="0" />
+              <xs:element name="total_out" msprop:Generator_ColumnVarNameInTable="columntotal_out" msprop:Generator_ColumnPropNameInRow="total_out" msprop:Generator_ColumnPropNameInTable="total_outColumn" msprop:Generator_UserColumnName="total_out" type="xs:double" minOccurs="0" />
+              <xs:element name="total_in" msprop:Generator_ColumnVarNameInTable="columntotal_in" msprop:Generator_ColumnPropNameInRow="total_in" msprop:Generator_ColumnPropNameInTable="total_inColumn" msprop:Generator_UserColumnName="total_in" type="xs:double" minOccurs="0" />
+              <xs:element name="shift_date" msprop:Generator_ColumnVarNameInTable="columnshift_date" msprop:Generator_ColumnPropNameInRow="shift_date" msprop:Generator_ColumnPropNameInTable="shift_dateColumn" msprop:Generator_UserColumnName="shift_date" type="xs:string" minOccurs="0" />
+              <xs:element name="remarks" msprop:Generator_ColumnVarNameInTable="columnremarks" msprop:Generator_ColumnPropNameInRow="remarks" msprop:Generator_ColumnPropNameInTable="remarksColumn" msprop:Generator_UserColumnName="remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="shift" msprop:Generator_ColumnVarNameInTable="columnshift" msprop:Generator_ColumnPropNameInRow="shift" msprop:Generator_ColumnPropNameInTable="shiftColumn" msprop:Generator_UserColumnName="shift" type="xs:string" minOccurs="0" />
+              <xs:element name="actual_count" msprop:Generator_ColumnVarNameInTable="columnactual_count" msprop:Generator_ColumnPropNameInRow="actual_count" msprop:Generator_ColumnPropNameInTable="actual_countColumn" msprop:Generator_UserColumnName="actual_count" type="xs:double" minOccurs="0" />
+              <xs:element name="variance" msprop:Generator_ColumnVarNameInTable="columnvariance" msprop:Generator_ColumnPropNameInRow="variance" msprop:Generator_ColumnPropNameInTable="varianceColumn" msprop:Generator_UserColumnName="variance" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

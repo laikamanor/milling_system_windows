@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsItemRequest2" targetNamespace="http://tempuri.org/dsItemRequest2.xsd" xmlns:mstns="http://tempuri.org/dsItemRequest2.xsd" xmlns="http://tempuri.org/dsItemRequest2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsItemRequest2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsItemRequest2" msprop:Generator_UserDSName="dsItemRequest2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="rows" msprop:Generator_TableClassName="rowsDataTable" msprop:Generator_TableVarName="tablerows" msprop:Generator_TablePropName="rows" msprop:Generator_RowDeletingName="rowsRowDeleting" msprop:Generator_RowChangingName="rowsRowChanging" msprop:Generator_RowEvHandlerName="rowsRowChangeEventHandler" msprop:Generator_RowDeletedName="rowsRowDeleted" msprop:Generator_UserTableName="rows" msprop:Generator_RowChangedName="rowsRowChanged" msprop:Generator_RowEvArgName="rowsRowChangeEvent" msprop:Generator_RowClassName="rowsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="from_branch" msprop:Generator_ColumnVarNameInTable="columnfrom_branch" msprop:Generator_ColumnPropNameInRow="from_branch" msprop:Generator_ColumnPropNameInTable="from_branchColumn" msprop:Generator_UserColumnName="from_branch" type="xs:string" minOccurs="0" />
+              <xs:element name="to_branch" msprop:Generator_ColumnVarNameInTable="columnto_branch" msprop:Generator_ColumnPropNameInRow="to_branch" msprop:Generator_ColumnPropNameInTable="to_branchColumn" msprop:Generator_UserColumnName="to_branch" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

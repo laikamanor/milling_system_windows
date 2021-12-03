@@ -31,8 +31,6 @@ namespace AB
         api_class apic = new api_class();
         devexpress_class devc = new devexpress_class();
         DataTable dtBranches = new DataTable(), dtPlant = new DataTable();
-        DataTable dtColor = new DataTable();
-        int currentColorIndex = 0;
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             closeForm();
@@ -46,8 +44,7 @@ namespace AB
         private void ReceiptFromProduction_Load(object sender, EventArgs e)
         {
             this.Icon = Properties.Resources.logo2;
-            dtFromDate.Visible = false;
-            checkToDate.Checked = true;
+            checkToDate.Checked = checkDate.Checked = true;
             cmbFromTime.SelectedIndex = 0;
             cmbToTime.SelectedIndex = cmbToTime.Items.Count - 1;
             loadPlant();
@@ -120,6 +117,10 @@ namespace AB
 
 
                 dtData.SetColumnsOrder("transdate", "reference", "remarks","view_remarks", "issued_transdate", "issued_reference");
+
+                string[] lists = { "reference","issued_reference" };
+                dtData = dtData.addSameReference(lists);
+
                 if (IsHandleCreated)
                 {
                     gridControl1.Invoke(new Action(delegate ()
@@ -263,9 +264,16 @@ namespace AB
                 }
                 else if (selectedColumnfieldName.Equals("issued_reference"))
                 {
-                    Production_IssueProduction_Items frm = new Production_IssueProduction_Items("Closed");
-                    frm.selectedID = issuedID;
-                    frm.ShowDialog();
+                    string issuedReference = gridView1.GetFocusedRowCellValue("issued_reference").ToString();
+                    if (!string.IsNullOrEmpty(issuedReference.Trim())){
+                        Production_IssueProduction_Items frm = new Production_IssueProduction_Items("Closed");
+                        frm.reference = issuedReference;
+                        frm.selectedID = issuedID;
+                        frm.ShowDialog();
+                    } else
+                    {
+                        apic.showCustomMsgBox("Validation", "No Issue For Production found!");
+                    }
                 }
             }
             catch (Exception ex)
@@ -379,6 +387,18 @@ namespace AB
                 e.Appearance.BackColor = gridView1.PaintAppearance.SelectedRow.BackColor;
             else
                 e.Appearance.BackColor = e.Appearance.BackColor;
+            if (e.Column.FieldName.Equals("reference"))
+            {
+                string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "reference_color").ToString();
+                Color col = ColorTranslator.FromHtml(referenceCol);
+                e.Appearance.BackColor = col;
+            }
+            if (e.Column.FieldName.Equals("issued_reference"))
+            {
+                string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "issued_reference_color").ToString();
+                Color col = ColorTranslator.FromHtml(referenceCol);
+                e.Appearance.BackColor = col;
+            }
         }
 
         private void gridView1_MouseMove(object sender, MouseEventArgs e)

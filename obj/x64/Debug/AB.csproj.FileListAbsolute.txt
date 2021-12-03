@@ -879,7 +879,6 @@ D:\net projects\AGI\AB\obj\x64\Debug\AB.SystemReceive_Selected.resources
 D:\net projects\AGI\AB\obj\x64\Debug\AB.SystemReceive_SelectedItems.resources
 D:\net projects\AGI\AB\obj\x64\Debug\AB.SystemReceive_SelectedReference.resources
 D:\net projects\AGI\AB\obj\x64\Debug\AB.viewToSaveInventory.resources
-D:\net projects\AGI\AB\obj\x64\Debug\AB.csprojResolveAssemblyReference.cache
 D:\net projects\AGI\AB\bin\x64\Debug\AGI.exe.config
 D:\net projects\AGI\AB\bin\x64\Debug\AGI.exe
 D:\net projects\AGI\AB\bin\x64\Debug\AGI.pdb
@@ -887,3 +886,6 @@ D:\net projects\AGI\AB\obj\x64\Debug\AGI.exe.licenses
 D:\net projects\AGI\AB\obj\x64\Debug\AGI.exe
 D:\net projects\AGI\AB\obj\x64\Debug\AGI.pdb
 D:\net projects\AGI\AB\obj\x64\Debug\AB.Form3.resources
+D:\net projects\AGI\AB\obj\x64\Debug\AB.TemperingDue.resources
+D:\net projects\AGI\AB\obj\x64\Debug\AB.Transfer_Remarks.resources
+D:\net projects\AGI\AB\obj\x64\Debug\AB.csprojResolveAssemblyReference.cache

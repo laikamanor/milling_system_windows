@@ -36,7 +36,7 @@ namespace AB
         {
             this.Icon = Properties.Resources.logo2;
             dtFromDate.EditValue = dtToDate.EditValue = DateTime.Now;
-            checkDate.Checked = !gTabName.Equals("For SAP");
+            checkDate.Checked = dtFromDate.Visible = true;
             this.Text = gAdjType.Equals("in") ? "Adjusment In" : "Adjustment Out";
             btnAdd.Visible = gTabName.Equals("Done") ? false : true;
             loadWarehouse();

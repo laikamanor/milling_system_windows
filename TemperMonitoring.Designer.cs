@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TemperMonitoring));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -60,10 +60,14 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.checkFromDate = new System.Windows.Forms.CheckBox();
             this.checkToDate = new System.Windows.Forms.CheckBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbDispoStatus = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -77,6 +81,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtFromDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtFromDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbPlant.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDispoStatus.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gridControl1
@@ -84,7 +90,7 @@
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridControl1.Location = new System.Drawing.Point(12, 198);
+            this.gridControl1.Location = new System.Drawing.Point(12, 171);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -92,7 +98,7 @@
             this.repositoryItemButtonEdit1,
             this.repositoryItemButtonEdit2,
             this.repositoryItemMemoEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(836, 269);
+            this.gridControl1.Size = new System.Drawing.Size(836, 270);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -119,9 +125,9 @@
             // 
             // repositoryItemButtonEdit1
             // 
-            editorButtonImageOptions3.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions3.Image")));
+            editorButtonImageOptions1.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions1.Image")));
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEdit1.Click += new System.EventHandler(this.repositoryItemButtonEdit1_Click);
@@ -129,9 +135,9 @@
             // repositoryItemButtonEdit2
             // 
             this.repositoryItemButtonEdit2.AutoHeight = false;
-            editorButtonImageOptions4.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions4.Image")));
+            editorButtonImageOptions2.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions2.Image")));
             this.repositoryItemButtonEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemButtonEdit2.Name = "repositoryItemButtonEdit2";
             this.repositoryItemButtonEdit2.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEdit2.Click += new System.EventHandler(this.repositoryItemButtonEdit2_Click);
@@ -147,7 +153,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Gray;
-            this.label6.Location = new System.Drawing.Point(645, 109);
+            this.label6.Location = new System.Drawing.Point(645, 82);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 16);
             this.label6.TabIndex = 174;
@@ -156,7 +162,7 @@
             // cmbToTime
             // 
             this.cmbToTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbToTime.Location = new System.Drawing.Point(741, 134);
+            this.cmbToTime.Location = new System.Drawing.Point(741, 107);
             this.cmbToTime.Name = "cmbToTime";
             this.cmbToTime.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
             this.cmbToTime.Properties.Appearance.Options.UseFont = true;
@@ -198,7 +204,7 @@
             // cmbFromTime
             // 
             this.cmbFromTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFromTime.Location = new System.Drawing.Point(741, 106);
+            this.cmbFromTime.Location = new System.Drawing.Point(741, 79);
             this.cmbFromTime.Name = "cmbFromTime";
             this.cmbFromTime.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
             this.cmbFromTime.Properties.Appearance.Options.UseFont = true;
@@ -243,7 +249,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.DimGray;
-            this.label12.Location = new System.Drawing.Point(645, 138);
+            this.label12.Location = new System.Drawing.Point(645, 111);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(54, 15);
             this.label12.TabIndex = 171;
@@ -260,7 +266,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(701, 160);
+            this.button1.Location = new System.Drawing.Point(701, 133);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(147, 32);
             this.button1.TabIndex = 170;
@@ -279,7 +285,7 @@
             this.btnSearchQuery.ForeColor = System.Drawing.Color.Black;
             this.btnSearchQuery.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchQuery.Image")));
             this.btnSearchQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearchQuery.Location = new System.Drawing.Point(12, 160);
+            this.btnSearchQuery.Location = new System.Drawing.Point(12, 133);
             this.btnSearchQuery.Name = "btnSearchQuery";
             this.btnSearchQuery.Size = new System.Drawing.Size(147, 32);
             this.btnSearchQuery.TabIndex = 169;
@@ -292,7 +298,7 @@
             // 
             this.dtToDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtToDate.EditValue = null;
-            this.dtToDate.Location = new System.Drawing.Point(741, 74);
+            this.dtToDate.Location = new System.Drawing.Point(741, 47);
             this.dtToDate.Name = "dtToDate";
             this.dtToDate.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
             this.dtToDate.Properties.Appearance.Options.UseFont = true;
@@ -313,7 +319,7 @@
             // 
             this.dtFromDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtFromDate.EditValue = null;
-            this.dtFromDate.Location = new System.Drawing.Point(741, 44);
+            this.dtFromDate.Location = new System.Drawing.Point(741, 17);
             this.dtFromDate.Name = "dtFromDate";
             this.dtFromDate.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
             this.dtFromDate.Properties.Appearance.Options.UseFont = true;
@@ -336,7 +342,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(645, 77);
+            this.label3.Location = new System.Drawing.Point(645, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 16);
             this.label3.TabIndex = 166;
@@ -348,7 +354,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(645, 46);
+            this.label5.Location = new System.Drawing.Point(645, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 16);
             this.label5.TabIndex = 165;
@@ -356,7 +362,7 @@
             // 
             // cmbPlant
             // 
-            this.cmbPlant.Location = new System.Drawing.Point(60, 131);
+            this.cmbPlant.Location = new System.Drawing.Point(106, 104);
             this.cmbPlant.Name = "cmbPlant";
             this.cmbPlant.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
             this.cmbPlant.Properties.Appearance.Options.UseFont = true;
@@ -375,7 +381,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.DimGray;
-            this.label7.Location = new System.Drawing.Point(9, 137);
+            this.label7.Location = new System.Drawing.Point(10, 110);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(45, 16);
             this.label7.TabIndex = 163;
@@ -391,7 +397,7 @@
             // 
             this.checkFromDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkFromDate.AutoSize = true;
-            this.checkFromDate.Location = new System.Drawing.Point(624, 48);
+            this.checkFromDate.Location = new System.Drawing.Point(624, 21);
             this.checkFromDate.Name = "checkFromDate";
             this.checkFromDate.Size = new System.Drawing.Size(15, 14);
             this.checkFromDate.TabIndex = 175;
@@ -404,21 +410,71 @@
             this.checkToDate.AutoSize = true;
             this.checkToDate.Checked = true;
             this.checkToDate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkToDate.Location = new System.Drawing.Point(624, 79);
+            this.checkToDate.Location = new System.Drawing.Point(624, 52);
             this.checkToDate.Name = "checkToDate";
             this.checkToDate.Size = new System.Drawing.Size(15, 14);
             this.checkToDate.TabIndex = 176;
             this.checkToDate.UseVisualStyleBackColor = true;
             this.checkToDate.CheckedChanged += new System.EventHandler(this.checkToDate_CheckedChanged);
             // 
-            // panel2
+            // pictureBox1
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(255)))), ((int)(((byte)(191)))));
-            this.panel2.Location = new System.Drawing.Point(12, 473);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(39, 15);
-            this.panel2.TabIndex = 178;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 447);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(37, 22);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 203;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(55, 451);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 15);
+            this.label2.TabIndex = 202;
+            this.label2.Text = "Same Reference";
+            // 
+            // cmbDispoStatus
+            // 
+            this.cmbDispoStatus.Location = new System.Drawing.Point(105, 73);
+            this.cmbDispoStatus.Name = "cmbDispoStatus";
+            this.cmbDispoStatus.Properties.Appearance.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.cmbDispoStatus.Properties.Appearance.Options.UseFont = true;
+            this.cmbDispoStatus.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDispoStatus.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.cmbDispoStatus.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            this.cmbDispoStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbDispoStatus.Properties.Sorted = true;
+            this.cmbDispoStatus.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmbDispoStatus.Size = new System.Drawing.Size(188, 22);
+            this.cmbDispoStatus.TabIndex = 206;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.DimGray;
+            this.label8.Location = new System.Drawing.Point(9, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(90, 16);
+            this.label8.TabIndex = 205;
+            this.label8.Text = "Dispo Status:";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(151)))), ((int)(((byte)(94)))));
+            this.panel1.Location = new System.Drawing.Point(12, 475);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(36, 14);
+            this.panel1.TabIndex = 207;
             // 
             // label1
             // 
@@ -426,11 +482,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(57, 473);
+            this.label1.Location = new System.Drawing.Point(54, 475);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 15);
-            this.label1.TabIndex = 179;
-            this.label1.Text = "Is Good";
+            this.label1.Size = new System.Drawing.Size(75, 15);
+            this.label1.TabIndex = 208;
+            this.label1.Text = "Overdue > 3";
             // 
             // label4
             // 
@@ -438,20 +494,20 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(57, 494);
+            this.label4.Location = new System.Drawing.Point(54, 495);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 15);
-            this.label4.TabIndex = 182;
-            this.label4.Text = "Overdue";
+            this.label4.Size = new System.Drawing.Size(62, 15);
+            this.label4.TabIndex = 210;
+            this.label4.Text = "- Overdue";
             // 
-            // panel3
+            // panel2
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(255)))), ((int)(((byte)(191)))));
-            this.panel3.Location = new System.Drawing.Point(12, 494);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(39, 15);
-            this.panel3.TabIndex = 181;
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(102)))), ((int)(((byte)(82)))));
+            this.panel2.Location = new System.Drawing.Point(12, 495);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(36, 14);
+            this.panel2.TabIndex = 209;
             // 
             // TemperMonitoring
             // 
@@ -460,10 +516,14 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(860, 541);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.cmbDispoStatus);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkToDate);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkFromDate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbToTime);
@@ -481,7 +541,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TemperMonitoring";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TemperMonitoring";
+            this.Text = "Raw Wheat Bins";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TemperMonitoring_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -497,6 +557,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtFromDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtFromDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbPlant.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDispoStatus.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -524,10 +586,14 @@
         private System.Windows.Forms.CheckBox checkToDate;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit2;
-        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label2;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbDispoStatus;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel3;
-        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AB.UI_Class;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using DevExpress.XtraGrid.Columns;
 using System.Globalization;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraGrid.Views.Grid;
 using AB.API_Class;
@@ -520,7 +515,6 @@ namespace AB
         public static DataTable addSameReference(this DataTable dt, string[] columnNames)
         {
             api_class apic = new api_class();
-            color_class colorc = new color_class();
             try
             {
                 
@@ -552,10 +546,9 @@ namespace AB
                                 return dt;
                             }
                         }
-                        int counter = 0;
+                        RandomPastelColorGenerator rpcg = new RandomPastelColorGenerator();
                         foreach (string columnName in columnNames)
                         {
-
                             if (dt2.Columns.Contains(columnName))
                             {
                                 foreach (DataRow row in dt2.Rows)
@@ -564,21 +557,20 @@ namespace AB
                                     DataRow[] rows = dt2.Select(columnName + "='" + reference + "'");
                                     if (rows.Length > 0)
                                     {
+                                        var ssss = rpcg.GetNext();
+                                        var drawingcolor = System.Drawing.Color.FromArgb(
+                                        ssss.A, ssss.R, ssss.G, ssss.B);
                                         foreach (DataRow row2 in rows)
                                         {
                                             if (dt2.Rows.IndexOf(row) != dt2.Rows.IndexOf(row2))
                                             {
                                                 int rIndex = dt2.Rows.IndexOf(row);
                                                 int rIndex2 = dt2.Rows.IndexOf(row2);
-
-                                                counter = counter >= colorc.c.Count() ? 0 : counter;
-                                                Color col = colorc.c[counter];
-
-                                                dt2.Rows[rIndex][columnName + "_color"] = ColorTranslator.ToHtml(col);
-                                                dt2.Rows[rIndex2][columnName + "_color"] = ColorTranslator.ToHtml(col);
+                                                
+                                                dt2.Rows[rIndex][columnName + "_color"] = ColorTranslator.ToHtml(drawingcolor);
+                                                dt2.Rows[rIndex2][columnName + "_color"] = ColorTranslator.ToHtml(drawingcolor);
                                             }
                                         }
-                                        counter++;
                                     }
                                 }
                             }

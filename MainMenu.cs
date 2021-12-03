@@ -43,6 +43,7 @@ namespace AB
         private const int cGrip = 16;      // Grip size
         private const int cCaption = 32;   // Caption bar height;
         static Panel pnn = new Panel();
+        int totalDispo = 0;
         private void MainMenu_Load(object sender, EventArgs e)
         {
             try
@@ -935,7 +936,7 @@ namespace AB
         {
             try
             {
-                TemperMonitoringTab frm = new TemperMonitoringTab(0, "panelForDisposition", "");
+                TemperMonitoringTab frm = new TemperMonitoringTab(0, "panelDone", "1");
                 showForm(frm);
             }
             catch (Exception ex)
@@ -1004,21 +1005,20 @@ namespace AB
 
 
 
-        private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private  void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
                 count_class countc = new count_class();
-                menuStrip1.Invoke(new Action(async delegate ()
+                menuStrip1.Invoke(new Action(delegate ()
                 {
                     int CWcount = countc.loadIssueCount("CLEAN WHEAT");
                     int feedBCount = countc.loadIssueCount("FEEDBACK");
                     int FBCount = countc.loadIssueCount("FLOUR BINS");
                     int FPBcount = countc.loadIssueCount("FLOUR PACKING BINS");
                     int BPBcount = countc.loadIssueCount("BRAN/POLLARD PACKING BINS");
-                    int total = CWcount + FPBcount + BPBcount + feedBCount + FBCount;
+                    int total = CWcount + FPBcount + BPBcount + feedBCount + FBCount + totalDispo;
                     int packingBinCount = FPBcount + BPBcount;
-                    Console.WriteLine(CWcount + "/" + FPBcount + "/" + BPBcount);
                     int binCount = CWcount + feedBCount + FBCount;
                     asdToolStripMenuItem.Image = binCount <= 0 ? null : Properties.Resources.warning;
                     issueForPackingToolStripMenuItem.Image = packingBinCount <= 0 ? null : Properties.Resources.warning;
@@ -1044,7 +1044,7 @@ namespace AB
             }
         }
 
-        private async void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        private  void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -1053,10 +1053,13 @@ namespace AB
                 {
                     int FBcount = await countc.loadBinsCount("", "");
                     int FPBcount = countc.loadPackingBinsCount("", "");
-                    int totalCount = FBcount + FPBcount;
+                    int TempCount = await countc.loadTempering();
+                    int totalCount = totalDispo = FBcount + FPBcount + TempCount;
                     flourBranBinsToolStripMenuItem.Image = FBcount <= 0 ? null : Properties.Resources.warning;
                     flourBranPackingBinsToolStripMenuItem.Image = FPBcount <= 0 ? null : Properties.Resources.warning;
+                    weatBinsToolStripMenuItem.Image = TempCount <= 0 ? null : Properties.Resources.warning;
                     qADispositionToolStripMenuItem.Image = totalCount <= 0 ? null : Properties.Resources.warning;
+
                 }));
             }
             catch (Exception ex)
@@ -1533,7 +1536,7 @@ namespace AB
 
         private void weatBinsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TemperMonitoring frm = new TemperMonitoring("");
+            TemperingDue frm = new TemperingDue();
             showForm(frm);
         }
 

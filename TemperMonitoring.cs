@@ -42,16 +42,29 @@ namespace AB
             cmbToTime.SelectedIndex = cmbToTime.Properties.Items.Count - 1;
             dtFromDate.EditValue = DateTime.Now;
             dtToDate.EditValue = DateTime.Now;
-            checkFromDate.Checked = gMode.Equals("") ? false : true;
+            checkFromDate.Checked = label8.Visible = cmbDispoStatus.Visible = panel1.Visible = label1.Visible = panel2.Visible = label4.Visible = gMode.Equals("for_dispo") ? false : true;
             dtFromDate.Visible = checkFromDate.Checked;
+
 
             //color
             dtColor.Columns.Add("index", typeof(int));
             dtColor.Columns.Add("color", typeof(string));
             dtColor2.Columns.Add("index", typeof(int));
             dtColor2.Columns.Add("color", typeof(string));
+            loadDispoStatus();
             loadPlant();
             bg(backgroundWorker1);
+        }
+
+        public void loadDispoStatus()
+        {
+            cmbDispoStatus.Properties.Items.Clear();
+            string[] list = { "All", "w/ Dispo", "w/o Dispo" };
+           foreach(string a in list)
+            {
+                cmbDispoStatus.Properties.Items.Add(a);
+            }
+            cmbDispoStatus.SelectedIndex = 1;
         }
 
         public void loadPlant()
@@ -94,7 +107,7 @@ namespace AB
             }));
             bool cFromDate = false, cToDate = false;
 
-            string sPlant = "?plant=", sFromDate = "&from_date=", sToDate = "&to_date=", sFromTime = "&from_time=", sToTime = "&to_time=", sMode = "&mode=" + gMode;
+            string sPlant = "?plant=", sFromDate = "&from_date=", sToDate = "&to_date=", sFromTime = "&from_time=", sToTime = "&to_time=", sMode = "&mode=" + gMode, sDispoStatus = "&dispo_status=";
             cmbPlant.Invoke(new Action(delegate ()
             {
                 string plantCode = apic.findValueInDataTable(dtPlant, cmbPlant.Text, "name", "code");
@@ -123,25 +136,30 @@ namespace AB
             cmbToTime.Invoke(new Action(delegate ()
             {
                 sToTime += cmbToTime.Text;
+            }));cmbDispoStatus.Invoke(new Action(delegate ()
+            {
+                string dispoText = cmbDispoStatus.Text;
+                sDispoStatus += dispoText.Equals("All") ? 2 : dispoText.Equals("w/ Dispo") ? 1 : dispoText.Equals("w/o Dispo") ? 0 : -1;
             }));
-            string sParams = sPlant + sFromDate + sToDate + sFromTime + sToTime + sMode;
+            string sParams = sPlant + sFromDate + sToDate + sFromTime + sToTime + (gMode.Equals("for_dispo") ? sMode : sDispoStatus);
             string sResult = apic.loadData("/api/inv/trfr/tempering_monitoring", sParams, "", "", Method.GET, true);
             if (!string.IsNullOrEmpty(sResult) && sResult.Substring(0, 1).Equals("{"))
             {
                 JObject joResponse = JObject.Parse(sResult);
                 JArray jaData = (JArray)joResponse["data"];
-                //Console.WriteLine(jaData.ToString());
                 DataTable dtData = (DataTable)JsonConvert.DeserializeObject(jaData.ToString(), (typeof(DataTable)));
                 //dtData.Rows.Add(16, "RW-TRFR-100000005", DateTime.Now, DateTime.Now, 1, "item", 1, "from whse", "to whse", "done");
-                if (gMode.Equals("") && dtData.Rows.Count > 0)
+                if (gMode.Equals("for_dispo") && dtData.Rows.Count > 0)
                 {
-                    dtData.Columns.Add("btn_good");
-                    dtData.Columns.Add("btn_overdue");
+                    dtData.Columns.Add("btn_approve");
                 }
-                Console.WriteLine("H1");
+                else if(gMode.Equals("1") && dtData.Rows.Count > 0)
+                {
+                    dtData.Columns.Add("btn_view_remarks");
+                }
                 Task t = Task.Run(() =>
                 {
-                    string[] list = { "reference", "issued_reference" };
+                    string[] list = { "reference" };
                     dtData = dtData.addSameReference(list);
                 });
                 Task.WaitAll(t);
@@ -167,93 +185,91 @@ namespace AB
                                 "mill",
                                 "vessel",
                                 "created_by",
+                                "for_issue",
+                                "cw_dispo_date",
                                 "issued_date",
                                 "issued_reference",
-                                "issued_remarks",
-                                "for_issue"};
+                                "btn_view_remarks"};
 
                     dtData.SetColumnsOrder(columnOrder);
                 });
                 Task.WaitAll(t2);
-                Console.WriteLine("H2");
                 DataTable dtCloned = new DataTable();
-                Task t3 = Task.Run(() =>
-                {
-                    dtCloned = dtData.Clone();
-                    DateTime dtTemp = new DateTime();
-                    if (dtCloned.Columns.Contains("issued_date"))
-                    {
-                        dtCloned.Columns["issued_date"].DataType = typeof(DateTime);
+                //Task t3 = Task.Run(() =>
+                //{
+                //    dtCloned = dtData.Clone();
+                //    DateTime dtTemp = new DateTime();
+                //    if (dtCloned.Columns.Contains("issued_date"))
+                //    {
+                //        dtCloned.Columns["issued_date"].DataType = typeof(DateTime);
 
-                        foreach (DataRow row in dtData.Rows)
-                        {
-                            row["issued_date"] = row["issued_date"] == null ? DBNull.Value : DateTime.TryParse(row["issued_date"].ToString(), out dtTemp) ? row["issued_date"] : (object)DBNull.Value;
-                            dtCloned.ImportRow(row);
-                        }
-                    }
-                });
-                Task.WaitAll(t3);
-                Console.WriteLine("H3");
+                //        foreach (DataRow row in dtData.Rows)
+                //        {
+                //            row["issued_date"] = row["issued_date"] == null ? DBNull.Value : DateTime.TryParse(row["issued_date"].ToString(), out dtTemp) ? row["issued_date"] : (object)DBNull.Value;
+                //            dtCloned.ImportRow(row);
+                //        }
+                //    }
+                //});
+                //Task.WaitAll(t3);
 
-                loadUI(dtCloned);
+                loadUI(dtData);
             }
         }
 
-        async void loadUI(DataTable dtCloned)
+         void loadUI(DataTable dtCloned)
         {
-            await Task.Run(() =>
+            Task t = Task.Run(() =>
             {
-                Thread.Sleep(1000);
+                gridControl1.Invoke(new Action(delegate ()
+                {
+                    gridControl1.DataSource = dtCloned;
+                    gridView1.OptionsView.ColumnAutoWidth = false;
+                    gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
+                    foreach (GridColumn col in gridView1.Columns)
+                    {
+                        string fieldName = col.FieldName;
+                        string v = col.GetCaption();
+                        string s = col.GetCaption().Replace("_", " ");
+                        col.Caption = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLower());
+
+                        //caption btn remove
+                        col.Caption = fieldName.Equals("btn_approve") ? "Approve" : fieldName.Equals("btn_view_remarks") ? "View Remarks" : fieldName.Equals("cw_dispo_date") ? "Dispo Date" : col.Caption;
+
+                        col.ColumnEdit = fieldName.Equals("btn_approve") ? repositoryItemButtonEdit1 : fieldName.Equals("btn_view_remarks") ? repositoryItemButtonEdit2 : fieldName.Equals("remarks") || fieldName.Equals("issued_remarks") ? repositoryItemMemoEdit1 : repositoryItemTextEdit1;
+                        col.DisplayFormat.FormatType = fieldName.Equals("quantity") || fieldName.Equals("tempering_time") || fieldName.Equals("overdue") ? DevExpress.Utils.FormatType.Numeric : fieldName.Equals("transdate") || fieldName.Equals("due") || fieldName.Equals("duedate") || fieldName.Equals("start_transfer_date") || fieldName.Equals("end_transfer_date") || fieldName.Equals("due_start") || fieldName.Equals("due_end") || fieldName.Equals("issued_date") || fieldName.Equals("cw_dispo_date") ? DevExpress.Utils.FormatType.DateTime : DevExpress.Utils.FormatType.None;
+                        col.DisplayFormat.FormatString = fieldName.Equals("quantity") || fieldName.Equals("tempering_time") || fieldName.Equals("overdue") ? "{0:#,0.000}" : fieldName.Equals("transdate") || fieldName.Equals("due") || fieldName.Equals("duedate") || fieldName.Equals("issued_date") || fieldName.Equals("start_transfer_date") || fieldName.Equals("end_transfer_date") || fieldName.Equals("due_start") || fieldName.Equals("due_end") || fieldName.Equals("cw_dispo_date") ? "yyyy-MM-dd HH:mm:ss" : "";
+
+                        col.Visible = !(fieldName.Equals("id") || fieldName.Equals("is_overdue") || fieldName.Equals("issued_id") || fieldName.Equals("reference_color") || fieldName.Equals("issued_reference_color"));
+
+
+                        //fonts
+                        FontFamily fontArial = new FontFamily("Arial");
+                        col.AppearanceHeader.Font = new Font(fontArial, 11, FontStyle.Regular);
+                        col.AppearanceCell.Font = new Font(fontArial, 10, FontStyle.Regular);
+
+                        //fixed column
+                        col.Fixed =   fieldName.Equals("btn_approve") || fieldName.Equals("btn_view_remarks") ? FixedStyle.Right : fieldName.Equals("reference") || fieldName.Equals("transdate") ? FixedStyle.Left : FixedStyle.None;
+                    }
+                    gridView1.BestFitColumns();
+                    //auto complete
+                    string[] suggestions = { "reference" };
+                    string suggestConcat = string.Join(";", suggestions);
+                    gridView1.OptionsFind.FindFilterColumns = suggestConcat;
+                    devc.loadSuggestion(gridView1, gridControl1, suggestions);
+                    gridView1.BestFitColumns();
+                    var col2 = gridView1.Columns["remarks"];
+                    var col3 = gridView1.Columns["issued_remarks"];
+                    if (col2 != null)
+                    {
+                        col2.Width = 200;
+                    }
+                    if (col3 != null)
+                    {
+                        col3.Width = 200;
+                    }
+                }));
             });
-            gridControl1.Invoke(new Action(delegate ()
-            {
-                gridControl1.DataSource = dtCloned;
-                gridView1.OptionsView.ColumnAutoWidth = false;
-                gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
-                foreach (GridColumn col in gridView1.Columns)
-                {
-                    string fieldName = col.FieldName;
-                    string v = col.GetCaption();
-                    string s = col.GetCaption().Replace("_", " ");
-                    col.Caption = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.ToLower());
-
-                    //caption btn remove
-                    col.Caption = fieldName.Equals("btn_overdue") ? "Over Due" : fieldName.Equals("btn_good") ? "Good" : col.Caption;
-
-                    col.ColumnEdit = fieldName.Equals("btn_overdue") ? repositoryItemButtonEdit1 : fieldName.Equals("btn_good") ? repositoryItemButtonEdit2 : fieldName.Equals("remarks") || fieldName.Equals("issued_remarks") ? repositoryItemMemoEdit1 : repositoryItemTextEdit1;
-                    col.DisplayFormat.FormatType = fieldName.Equals("quantity") || fieldName.Equals("tempering_time") || fieldName.Equals("overdue") ? DevExpress.Utils.FormatType.Numeric : fieldName.Equals("transdate") || fieldName.Equals("due") || fieldName.Equals("duedate") || fieldName.Equals("start_transfer_date") || fieldName.Equals("end_transfer_date") || fieldName.Equals("due_start") || fieldName.Equals("due_end") || fieldName.Equals("issued_date") ? DevExpress.Utils.FormatType.DateTime : DevExpress.Utils.FormatType.None;
-                    col.DisplayFormat.FormatString = fieldName.Equals("quantity") || fieldName.Equals("tempering_time") || fieldName.Equals("overdue") ? "{0:#,0.000}" : fieldName.Equals("transdate") || fieldName.Equals("due") || fieldName.Equals("duedate") || fieldName.Equals("issued_date") || fieldName.Equals("start_transfer_date") || fieldName.Equals("end_transfer_date") || fieldName.Equals("due_start") || fieldName.Equals("due_end") ? "yyyy-MM-dd HH:mm:ss" : "";
-
-                    col.Visible = !(fieldName.Equals("id") || fieldName.Equals("is_overdue") || fieldName.Equals("issued_id") || fieldName.Equals("reference_color") || fieldName.Equals("issued_reference_color"));
-
-
-                    //fonts
-                    FontFamily fontArial = new FontFamily("Arial");
-                    col.AppearanceHeader.Font = new Font(fontArial, 11, FontStyle.Regular);
-                    col.AppearanceCell.Font = new Font(fontArial, 10, FontStyle.Regular);
-
-                    //fixed column
-                    col.Fixed = fieldName.Equals("btn_good") || fieldName.Equals("btn_overdue") ? FixedStyle.Right : fieldName.Equals("reference") || fieldName.Equals("transdate") ? FixedStyle.Left : FixedStyle.None;
-                }
-                gridView1.BestFitColumns();
-                //auto complete
-                string[] suggestions = { "reference" };
-                string suggestConcat = string.Join(";", suggestions);
-                gridView1.OptionsFind.FindFilterColumns = suggestConcat;
-                devc.loadSuggestion(gridView1, gridControl1, suggestions);
-                gridView1.BestFitColumns();
-                var col2 = gridView1.Columns["remarks"];
-                var col3 = gridView1.Columns["issued_remarks"];
-                if (col2 != null)
-                {
-                    col2.Width = 200;
-                }
-                if (col3 != null)
-                {
-                    col3.Width = 200;
-                }
-            }));
-            Console.WriteLine("H4");
+            t.Wait();
         }
 
         public void bg(BackgroundWorker bgww)
@@ -311,68 +327,93 @@ namespace AB
             dtToDate.Visible = checkToDate.Checked;
         }
 
-        public void isOverDue(bool isGood)
+        public void funcApprove()
         {
-            int id = 0, intTemp = 0;
-            id = int.TryParse(gridView1.GetFocusedRowCellValue("id").ToString(), out intTemp) ? Convert.ToInt32(gridView1.GetFocusedRowCellValue("id").ToString()) : intTemp;
-            Remarks.isSubmit = false;
-            Remarks rem = new Remarks();
-            rem.ShowDialog();
-            if (Remarks.isSubmit)
+            try
             {
-                JObject joBody = new JObject();
-                joBody.Add("is_overdue", isGood);
-                joBody.Add("remarks", Remarks.rem);
-                string sResult = apic.loadData("/api/inv/trfr/tempering/isoverdue/", id.ToString(), "application/json", joBody.ToString(), RestSharp.Method.PUT, true);
-                if (sResult != null)
+                int id = 0, intTemp = 0;
+                id = int.TryParse(gridView1.GetFocusedRowCellValue("id").ToString(), out intTemp) ? Convert.ToInt32(gridView1.GetFocusedRowCellValue("id").ToString()) : intTemp;
+                string currentRef = gridView1.GetFocusedRowCellValue("reference").ToString();
+                Remarks.isSubmit = false;
+                Remarks rem = new Remarks();
+                rem.Text = "Approve - " + currentRef;
+            rem.ShowDialog();
+                if (Remarks.isSubmit)
                 {
-                    if (!string.IsNullOrEmpty(sResult.Trim()))
+                    JObject joBody = new JObject();
+                    joBody.Add("remarks", Remarks.rem);
+                    string sResult = apic.loadData("/api/inv/trfr/tempering/dispo/", id.ToString(), "application/json", joBody.ToString(), RestSharp.Method.PUT, true);
+                    if (sResult != null)
                     {
-                        if (sResult.StartsWith("{"))
+                        if (!string.IsNullOrEmpty(sResult.Trim()))
                         {
-                            JObject joResult = JObject.Parse(sResult);
-                            bool isSuccess = false, boolTemp = false;
-                            isSuccess = (bool)joResult["success"];
-                            string msg = joResult["message"] == null ? "" : joResult["message"].ToString();
-                            apic.showCustomMsgBox(isSuccess ? "Message" : "Validation", msg);
-                            bg(backgroundWorker1);
+                            if (sResult.StartsWith("{"))
+                            {
+                                JObject joResult = JObject.Parse(sResult);
+                                bool isSuccess = false;
+                                isSuccess = (bool)joResult["success"];
+                                string msg = joResult["message"] == null ? "" : joResult["message"].ToString();
+                                apic.showCustomMsgBox(isSuccess ? "Message" : "Validation", msg);
+                                bg(backgroundWorker1);
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void repositoryItemButtonEdit1_Click(object sender, EventArgs e)
         {
-            isOverDue(true);   
+            funcApprove();
         }
 
         private void repositoryItemTextEdit1_Click(object sender, EventArgs e)
         {
-            string selectedColumnText = gridView1.FocusedColumn.FieldName;
-
-            if (selectedColumnText.Equals("reference"))
+            try
             {
-                int id = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString() == "" ? 0 : !Convert.IsDBNull(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) ? Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) : 0;
-                TransferItem_Details.isSubmit = false;
-                TransferItem_Details frm = new TransferItem_Details(id);
-                frm.ShowDialog();
-                if (TransferItem_Details.isSubmit)
+                string selectedColumnText = gridView1.FocusedColumn.FieldName;
+
+                if (selectedColumnText.Equals("reference"))
                 {
-                    bg(backgroundWorker1);
+                    int id = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString() == "" ? 0 : !Convert.IsDBNull(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) ? Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) : 0;
+                    TransferItem_Details.isSubmit = false;
+                    TransferItem_Details frm = new TransferItem_Details(id);
+                    frm.ShowDialog();
+                    if (TransferItem_Details.isSubmit)
+                    {
+                        bg(backgroundWorker1);
+                    }
+                }
+                else if (selectedColumnText.Equals("issued_reference"))
+                {
+                    string issuedReference = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_reference").ToString();
+
+                    if (!string.IsNullOrEmpty(issuedReference.Trim()))
+                    {
+                        int issuedID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString() == "" ? 0 : !Convert.IsDBNull(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString()) ? Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString()) : 0;
+
+                        Production_IssueProduction_Items.isSubmit = false;
+                        Production_IssueProduction_Items frm = new Production_IssueProduction_Items("Closed");
+                        frm.reference = issuedReference;
+                        frm.selectedID = issuedID;
+                        frm.ShowDialog();
+                        if (Production_IssueProduction_Items.isSubmit)
+                        {
+                            bg(backgroundWorker1);
+                        }
+                    }else
+                    {
+                        apic.showCustomMsgBox("Validation", "No Issue For Production found!");
+                    }
                 }
             }
-            else if (selectedColumnText.Equals("issued_reference"))
+            catch (Exception ex)
             {
-                int issuedID = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString() == "" ? 0 : !Convert.IsDBNull(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString()) ? Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_id").ToString()) : 0;
-                Production_IssueProduction_Items.isSubmit = false;
-                Production_IssueProduction_Items frm = new Production_IssueProduction_Items("Closed");
-                frm.selectedID = issuedID;
-                frm.ShowDialog();
-                if (Production_IssueProduction_Items.isSubmit)
-                {
-                    bg(backgroundWorker1);
-                }
+                apic.showCustomMsgBox(ex.Message, ex.ToString());
             }
         }
 
@@ -425,67 +466,42 @@ namespace AB
 
         private void gridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
-            int overDue = 0, intTemp = 0;
-            bool isOverDue = false, boolTemp = false;
-            isOverDue = gridView1.GetRowCellValue(e.RowHandle, "is_overdue") == null ? boolTemp : bool.TryParse(gridView1.GetRowCellValue(e.RowHandle, "is_overdue").ToString(), out boolTemp) ? Convert.ToBoolean(gridView1.GetRowCellValue(e.RowHandle, "is_overdue").ToString()) : boolTemp;
-            if (e.Column.FieldName == "duedate" && string.IsNullOrEmpty(gMode.Trim()))
+            try
             {
-                overDue = Int32.TryParse(gridView1.GetRowCellValue(e.RowHandle, "overdue").ToString(), out intTemp) ? Convert.ToInt32(gridView1.GetRowCellValue(e.RowHandle, "overdue").ToString()) : intTemp;
-                if (overDue > 2)
+                if (e.RowHandle == HotTrackRow)
+                    e.Appearance.BackColor = gridView1.PaintAppearance.SelectedRow.BackColor;
+                else
+                    e.Appearance.BackColor = e.Appearance.BackColor;
+
+                if (e.Column.FieldName.Equals("reference"))
                 {
-                    e.Appearance.BackColor = Color.FromArgb(251, 255, 191);
+                    string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "reference_color") == null ? "" : gridView1.GetRowCellValue(e.RowHandle, "reference_color").ToString();
+                    Color col = ColorTranslator.FromHtml(referenceCol);
+                    e.Appearance.BackColor = col;
                 }
-            }
-            else if (!string.IsNullOrEmpty(gMode.Trim()) && !isOverDue)
-            {
-                e.Appearance.BackColor = Color.FromArgb(207, 255, 191);
-            }
-            if (e.RowHandle == HotTrackRow)
-                e.Appearance.BackColor = gridView1.PaintAppearance.SelectedRow.BackColor;
-            else
-                e.Appearance.BackColor = e.Appearance.BackColor;
-
-            if (e.Column.FieldName.Equals("reference"))
-            {
-                string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "reference_color").ToString();
-                Color col = ColorTranslator.FromHtml(referenceCol);
-                e.Appearance.BackColor = col;
-            }
-            if (e.Column.FieldName.Equals("issued_reference"))
-            {
-                string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "issued_reference_color").ToString();
-                Color col = ColorTranslator.FromHtml(referenceCol);
-                e.Appearance.BackColor = col;
-            }
-            if (e.Column.FieldName.Equals("issued_reference"))
-            {
-                foreach (DataRow row in dtColor.Rows)
+                if (e.Column.FieldName.Equals("overdue") && gMode.Equals("1"))
                 {
-                    int index = 0;
-                    if (!string.IsNullOrEmpty(row["color2"].ToString()))
+                    int intTemp = 0;
+                    int overDue = Int32.TryParse(gridView1.GetRowCellValue(e.RowHandle, "overdue").ToString(), out intTemp) ? Convert.ToInt32(gridView1.GetRowCellValue(e.RowHandle, "overdue").ToString()) : intTemp;
+                    if (overDue > 3)
                     {
-                        index = int.TryParse(row["index2"].ToString(), out intTemp) ? Convert.ToInt32(row["index2"].ToString()) : intTemp;
-                        if (index == e.RowHandle)
-                        {
-                            //Color color = new Color(), colorTemp = new Color();
-                            //Console.WriteLine(row["color"].ToString());
-                            //e.Appearance.BackColor = ColorTranslator.FromHtml(row["color"].ToString());
-                            //Color.from
-
-                            e.Appearance.BackColor = ColorTranslator.FromHtml("#" + row["color2"].ToString());
-                        }
+                        e.Appearance.BackColor = Color.FromArgb(255, 151, 94);
+                    }
+                    else if (overDue < 0)
+                    {
+                        e.Appearance.BackColor = Color.FromArgb(250, 102, 82);
                     }
                 }
+                //if (e.Column.FieldName.Equals("issued_reference"))
+                //{
+                //    string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "issued_reference_color").ToString();
+                //    Color col = ColorTranslator.FromHtml(referenceCol);
+                //    e.Appearance.BackColor = col;
+                //}
             }
-            else if (e.Column.FieldName.Equals("reference"))
+            catch (Exception ex)
             {
-                string currentRef = gridView1.GetRowCellValue(e.RowHandle, "reference") == null ? "" : gridView1.GetRowCellValue(e.RowHandle, "reference").ToString();
-                for (int i = 0; i < gridView1.DataRowCount; i++)
-                {
-                    bool isSameRef = (gridView1.GetRowCellValue(i, "reference").ToString() == currentRef) && (i != e.RowHandle);
-                    e.Appearance.BackColor = isSameRef ? Color.Orange : e.Appearance.BackColor;
-
-                }
+                apic.showCustomMsgBox(ex.Message, ex.ToString());
             }
         }
 
@@ -503,17 +519,33 @@ namespace AB
             //}
         }
 
-        private void repositoryItemButtonEdit2_Click(object sender, EventArgs e)
-        {
-            isOverDue(false);
-        }
-
         private void gridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
          
 
         }
 
+        private void repositoryItemButtonEdit2_Click(object sender, EventArgs e)
+        {
+         try
+            {
+                string selectedColumnText = gridView1.FocusedColumn.FieldName;
+
+                if (selectedColumnText.Equals("btn_view_remarks"))
+                {
+                    int id = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString() == "" ? 0 : !Convert.IsDBNull(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) ? Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id").ToString()) : 0;
+
+                    string reference = gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "issued_reference").ToString();
+
+                    Transfer_Remarks frm = new Transfer_Remarks(id, reference);
+                    frm.ShowDialog();
+                }
+            }
+            catch(Exception ex)
+            {
+                apic.showCustomMsgBox(ex.Message, ex.ToString());
+            }
+        }
 
         private void gridView1_MouseMove(object sender, MouseEventArgs e)
         {

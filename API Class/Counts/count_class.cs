@@ -74,6 +74,66 @@ namespace AB.API_Class.Counts
             return result;
         }
 
+        public async Task<int> loadTempering()
+        {
+            var st = new StackTrace();
+            var sf = st.GetFrame(0);
+            var currentMethodName = sf.GetMethod();
+            utility_class utilityc = new utility_class();
+            api_class apic = new api_class();
+            int result = 0, intTemp = 0;
+            string sParams = "";
+            var client = new RestClient(utilityc.URL);
+            client.Timeout = utilityc.apiTimeOut;
+            var request = new RestRequest("/api/inv/trfr/tempering_due/count" + sParams);
+            //Console.WriteLine("/api/notification/get_all_unread?branch=" + selectedBranch + selectedFromDate + selectedToDate + selectedWarehouse);
+            request.AddHeader("Authorization", "Bearer " + apic.loadToken());
+            var t = client.ExecuteAsync(request).ConfigureAwait(false);
+            var response = await t;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                if (!string.IsNullOrEmpty(response.Content))
+                {
+                    if (response.Content.StartsWith("{"))
+                    {
+                        bool boolTemp = false;
+                        JObject joResult = JObject.Parse(response.Content);
+                        bool isSuccess = joResult["success"] == null ? false : bool.TryParse(joResult["success"].ToString(), out boolTemp) ? Convert.ToBoolean(joResult["success"].ToString()) : boolTemp;
+                        string msg = joResult["message"].ToString();
+                        result = joResult["data"] == null ? intTemp : Int32.TryParse(joResult["data"].ToString(), out intTemp) ? Convert.ToInt32(joResult["data"].ToString()) : intTemp;
+                    }
+                    else
+                    {
+                        Console.WriteLine(currentMethodName + Environment.NewLine + "error2 msg: " + response.Content);
+                    }
+                }
+            }
+            else
+            {
+                if (response.ErrorMessage == null)
+                {
+                    if (!string.IsNullOrEmpty(response.Content))
+                    {
+                        if (response.Content.StartsWith("{"))
+                        {
+                            JObject joResult = JObject.Parse(response.Content);
+                            string msg = joResult["message"].ToString();
+                        }
+                        else
+                        {
+                            Console.WriteLine(currentMethodName + Environment.NewLine + "error3: " + response.Content);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(currentMethodName + Environment.NewLine + "error4: " + response.ErrorMessage);
+                }
+
+            }
+            return result;
+        }
+
         public int loadPackingBinsCount(string tabName, string specsParams)
         {
             var st = new StackTrace();

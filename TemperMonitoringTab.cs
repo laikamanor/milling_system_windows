@@ -24,35 +24,8 @@ namespace AB
         private void TemperMonitoring_Load(object sender, EventArgs e)
         {
             this.Icon = Properties.Resources.logo2;
-            TemperMonitoring frm = new AB.TemperMonitoring(gMode);
-            tcTemperMonitoring.SelectedIndex = gSelectedTabIndex;
-            Panel pn = GetPanelByName(gPanelName);
-            showForm(frm, pn);
-        }
-
-        public Panel GetPanelByName(string pName)
-        {
-            foreach (TabPage tp in tcTemperMonitoring.TabPages)
-            {
-                foreach(Control c in tp.Controls)
-                {
-                    if (c.Name == pName)
-                    {
-                        if(c is Panel)
-                        {
-                            return (Panel)c;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string sMode = (tcTemperMonitoring.SelectedIndex == 0 ? "" : "1");
-            Panel pn = tcTemperMonitoring.SelectedIndex == 0 ? panelForDisposition : panelDone;
-            TemperMonitoring frm = new AB.TemperMonitoring(sMode);
+            TemperMonitoring frm = new AB.TemperMonitoring("1");
+            Panel pn = panelDone;
             showForm(frm, pn);
         }
 

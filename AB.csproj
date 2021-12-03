@@ -436,6 +436,7 @@
     <Compile Include="API Class\color_class.cs" />
     <Compile Include="API Class\Counts\count_class.cs" />
     <Compile Include="API Class\issue_class.cs" />
+    <Compile Include="API Class\RandomPastelColorGenerator.cs" />
     <Compile Include="cInventoryPerWhse.cs">
       <DependentUpon>cInventoryPerWhse.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1856,6 +1857,12 @@
     <Compile Include="SystemTransferItem_Selected.Designer.cs">
       <DependentUpon>SystemTransferItem_Selected.cs</DependentUpon>
     </Compile>
+    <Compile Include="TemperingDue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemperingDue.Designer.cs">
+      <DependentUpon>TemperingDue.cs</DependentUpon>
+    </Compile>
     <Compile Include="TemperMonitoring.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1939,6 +1946,12 @@
     </Compile>
     <Compile Include="Transfer_forSAPDetails.Designer.cs">
       <DependentUpon>Transfer_forSAPDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transfer_Remarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transfer_Remarks.Designer.cs">
+      <DependentUpon>Transfer_Remarks.cs</DependentUpon>
     </Compile>
     <Compile Include="Trucks.cs">
       <SubType>Form</SubType>
@@ -2424,6 +2437,9 @@
     <EmbeddedResource Include="SystemTransferItem_Selected.resx">
       <DependentUpon>SystemTransferItem_Selected.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TemperingDue.resx">
+      <DependentUpon>TemperingDue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TemperMonitoring.resx">
       <DependentUpon>TemperMonitoring.cs</DependentUpon>
     </EmbeddedResource>
@@ -2444,6 +2460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransferItem_Tab.resx">
       <DependentUpon>TransferItem_Tab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transfer_Remarks.resx">
+      <DependentUpon>Transfer_Remarks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vessel.resx">
       <DependentUpon>Vessel.cs</DependentUpon>

@@ -32,16 +32,11 @@ namespace AB
         api_class apic = new api_class();
         devexpress_class devc = new devexpress_class();
         DataTable dtPlant = new DataTable(), dtAssignDept = new DataTable();
-        int currentColorIndex = 0;
-        DataTable dtColor = new DataTable();
         private void IssueForPacking_Load(object sender, EventArgs e)
         {
             this.Icon = Properties.Resources.logo2;
-            dtColor.Columns.Add("index", typeof(int));
-            dtColor.Columns.Add("color", typeof(string));
-            dtFromDate.Visible = false;
-            checkDate.Checked = !gDocStatus.Equals("O");
-            checkToDate.Checked = true;
+            checkDate.Checked = dtFromDate.Visible = !gDocStatus.Equals("O");
+            checkToDate.Checked =  true;
             cmbFromTime.SelectedIndex = 0;
             cmbToTime.SelectedIndex = cmbToTime.Items.Count - 1;
             loadPlant();
@@ -112,30 +107,8 @@ namespace AB
                     dtData.Columns.Add("view_base_reference");
                 }
                 dtData.SetColumnsOrder("transdate", "reference", "item_code", "quantity", "whsecode", "mill", "gr_num", "remarks", "view_remarks", "fg_item", "fg_quantity", "fg_uom", "fg_targeted_qty", "created_by", "view_base_reference");
-                currentColorIndex = 0;
-                color_class colorc = new color_class();
-                dtColor.Rows.Clear();
-                foreach (DataRow row in dtData.Rows)
-                {
-                    string currentRef = row["reference"].ToString();
-                    foreach (DataRow row2 in dtData.Rows)
-                    {
-                        currentColorIndex = currentColorIndex >= colorc.c.Count() ? 0 : currentColorIndex;
-                        string currentRef1 = row2["reference"].ToString();
-                        bool v = (currentRef == currentRef1) && (dtData.Rows.IndexOf(row) != dtData.Rows.IndexOf(row2));
-                        if (v)
-                        {
-                            Color cc = colorc.c[currentColorIndex];
-                            string hex = string.Format("{0:X2}{1:X2}{2:X2}", cc.R, cc.G, cc.B);
-                            dtColor.Rows.Add(dtData.Rows.IndexOf(row), hex);
-                            dtColor.Rows.Add(dtData.Rows.IndexOf(row2), hex);
-                        }
-                        else if (currentRef != currentRef1)
-                        {
-                            currentColorIndex++;
-                        }
-                    }
-                }
+                string[] lists = { "reference" };
+                dtData = dtData.addSameReference(lists);
 
                 if (IsHandleCreated)
                 {
@@ -284,18 +257,17 @@ namespace AB
                 e.Appearance.BackColor = e.Appearance.BackColor;
             if (e.Column.FieldName.Equals("reference"))
             {
-                foreach (DataRow row in dtColor.Rows)
+                string referenceCol = gridView1.GetRowCellValue(e.RowHandle, "reference_color").ToString();
+                Color col = ColorTranslator.FromHtml(referenceCol);
+                e.Appearance.BackColor = col;
+            }
+            if (e.Column.FieldName.Equals("view_base_reference"))
+            {
+                int transferID = 0, intTemp = 0;
+                transferID = gridView1.GetRowCellValue(e.RowHandle,"transfer_id") == null ? 0 : Int32.TryParse(gridView1.GetRowCellValue(e.RowHandle, "transfer_id").ToString(), out intTemp) ? Convert.ToInt32(gridView1.GetRowCellValue(e.RowHandle, "transfer_id").ToString()) : intTemp;
+                if (transferID <= 0)
                 {
-                    int index = 0, intTemp = 0;
-                    index = int.TryParse(row["index"].ToString(), out intTemp) ? Convert.ToInt32(row["index"].ToString()) : intTemp;
-                    if (index == e.RowHandle)
-                    {
-                        //Color color = new Color(), colorTemp = new Color();
-                        //Console.WriteLine(row["color"].ToString());
-                        //e.Appearance.BackColor = ColorTranslator.FromHtml(row["color"].ToString());
-                        //Color.from
-                        e.Appearance.BackColor = ColorTranslator.FromHtml("#" + row["color"].ToString());
-                    }
+                    e.Appearance.BackColor2 = Color.Gray;
                 }
             }
         }

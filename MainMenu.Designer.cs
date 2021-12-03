@@ -69,6 +69,7 @@
             this.qADispositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flourBranBinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flourBranPackingBinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weatBinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.issueForProductionTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.issuedForPackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventoryTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,7 +114,6 @@
             this.pOSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifications0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelchildform = new System.Windows.Forms.Panel();
-            this.weatBinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.toastNotificationsManager1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -435,6 +435,13 @@
             this.flourBranPackingBinsToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.flourBranPackingBinsToolStripMenuItem.Text = "Flour/Bran Packing Bins";
             this.flourBranPackingBinsToolStripMenuItem.Click += new System.EventHandler(this.flourBranPackingBinsToolStripMenuItem_Click);
+            // 
+            // weatBinsToolStripMenuItem
+            // 
+            this.weatBinsToolStripMenuItem.Name = "weatBinsToolStripMenuItem";
+            this.weatBinsToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
+            this.weatBinsToolStripMenuItem.Text = "Tempering Due";
+            this.weatBinsToolStripMenuItem.Click += new System.EventHandler(this.weatBinsToolStripMenuItem_Click);
             // 
             // issueForProductionTestToolStripMenuItem
             // 
@@ -795,13 +802,6 @@
             this.panelchildform.TabIndex = 3;
             this.panelchildform.Paint += new System.Windows.Forms.PaintEventHandler(this.panelchildform_Paint);
             this.panelchildform.Resize += new System.EventHandler(this.panelchildform_Resize);
-            // 
-            // weatBinsToolStripMenuItem
-            // 
-            this.weatBinsToolStripMenuItem.Name = "weatBinsToolStripMenuItem";
-            this.weatBinsToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
-            this.weatBinsToolStripMenuItem.Text = "Weat Bins";
-            this.weatBinsToolStripMenuItem.Click += new System.EventHandler(this.weatBinsToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
